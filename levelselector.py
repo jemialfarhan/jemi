@@ -5,14 +5,13 @@ class LevelSelector:
               levels.Level7, levels.Level8, levels.Level9, levels.Level10, levels.Level11, levels.Level12,
               levels.Level13, levels.Level14, levels.Level15, levels.Level16, levels.Level17, levels.Level18,
               levels.Level19, levels.Level20, levels.Level21, levels.Level22, levels.Level23, levels.Level24,
-              levels.Level25,levels.Level26]  
+              levels.Level25,levels]  
 
     @staticmethod
     def select_level():
         print("Choose a level to play:")
         for i in range(1, len(LevelSelector.levels)):
             print(f"{i}. Level {i}")
-
         choice = input("Enter the number of the level: ")
 
         try:

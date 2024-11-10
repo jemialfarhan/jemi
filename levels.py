@@ -1,27 +1,10 @@
-from board import Board
-class Level26:
 
-    def __init__(self):
-        self.board = Board(rows=8, cols=8,lives=15)
-        self.board.place_cell(2, 0,'N',False)
-        self.board.place_cell(2, 1,'R',False)
-        
-        self.board.place_cell(1, 2,'I',False)
-        self.board.place_cell(2, 2,'I',False)
-        self.board.place_cell(3, 5,'I',False)
-        self.board.place_cell(4, 4,'I',False)
-        self.board.place_cell(5, 6,'I',False)
-        self.board.place_cell(6, 7,'I',False)
-        self.board.place_cell(1, 3,'I',False)
-        self.board.place_cell(2, 4,'I',False)
-        self.board.place_cell(3, 3,'I',False)
-        self.board.place_cell(4, 5,'I',False)
-        self.board.place_cell(6, 6,'I',False)
-        self.board.place_cell(1,1,'.',True)
-        self.board.place_cell(1,3,'.',True)
-    def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
+from bfs import Algoritims2
+from board import Board
+from choice import AlgorithmSelector
+from dfs import Algoritims
+from games import Games
+from move import Move
 
 class Level1:
     
@@ -33,9 +16,8 @@ class Level1:
         self.board.place_cell(1,3,'.',True)
 
     def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
-
+        AlgorithmSelector(self.board)
+        
 class Level2:
     
     def __init__(self):
@@ -52,9 +34,8 @@ class Level2:
         self.board.place_cell(4, 0,'N',False)
 
     def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
-
+        AlgorithmSelector(self.board)
+        
 class Level3:
     
     def __init__(self):
@@ -68,9 +49,8 @@ class Level3:
         self.board.place_cell(2, 0,'N',False)
 
     def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
-
+        AlgorithmSelector(self.board)
+        
 class Level4:
     
     def __init__(self):
@@ -85,9 +65,8 @@ class Level4:
         self.board.place_cell(2, 0,'N',False)
 
     def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
-
+        AlgorithmSelector(self.board)
+        
 class Level5:
     
     def __init__(self):
@@ -105,9 +84,8 @@ class Level5:
         self.board.place_cell(3, 1,'N',False)
 
     def display(self):
-        self.board.print_board()
-        self.board.magnet_selector()
-
+        AlgorithmSelector(self.board)
+        
 class Level6: 
  
     def __init__(self): 
@@ -119,9 +97,9 @@ class Level6:
         self.board.place_cell(0,3,'.',True) 
         self.board.place_cell(2,3,'.',True) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
         
 class Level7: 
  
@@ -139,10 +117,9 @@ class Level7:
         self.board.place_cell(4,1,' ',False) 
         self.board.place_cell(4,2,' ',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
- 
+    def display(self):
+        AlgorithmSelector(self.board)
+            
 class Level8: 
  
     def __init__(self): 
@@ -155,10 +132,9 @@ class Level8:
         self.board.place_cell(0,2,'.',True) 
         self.board.place_cell(2,2,'.',True) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()     
-        
+    def display(self):
+        AlgorithmSelector(self.board)
+                
         
 class Level9: 
  
@@ -171,9 +147,9 @@ class Level9:
         self.board.place_cell(0,6,'.',True) 
          
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()         
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level10: 
  
@@ -189,9 +165,9 @@ class Level10:
         self.board.place_cell(3,3,'.',True) 
          
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
                   
 class Level11: 
  
@@ -208,9 +184,9 @@ class Level11:
         self.board.place_cell(1,3,' ',False) 
         self.board.place_cell(1,4,' ',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level12: 
  
@@ -228,9 +204,9 @@ class Level12:
         self.board.place_cell(1,2,' ',False) 
         self.board.place_cell(1,3,' ',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()        
+    def display(self):
+        AlgorithmSelector(self.board)
+             
         
 class Level13: 
      
@@ -251,9 +227,9 @@ class Level13:
         self.board.place_cell(2,5,' ',False) 
  
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level14: 
      
@@ -269,9 +245,9 @@ class Level14:
         self.board.place_cell(3,3,'R',False) 
  
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()   
+    def display(self):
+        AlgorithmSelector(self.board)
+                   
  
  
 class Level15: 
@@ -287,9 +263,9 @@ class Level15:
         self.board.place_cell(1,2,'N',False) 
         self.board.place_cell(2,2,'R',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level16: 
      
@@ -304,9 +280,9 @@ class Level16:
         self.board.place_cell(2,4,'N',False) 
         self.board.place_cell(2,0,'R',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()       
+    def display(self):
+        AlgorithmSelector(self.board)
+                   
  
  
 class Level17: 
@@ -321,9 +297,9 @@ class Level17:
         self.board.place_cell(3,1,'.',True) 
         self.board.place_cell(3,3,'N',False) 
         self.board.place_cell(0,0,'R',False) 
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level18: 
      
@@ -351,9 +327,9 @@ class Level18:
         self.board.place_cell(4,4,' ',False) 
         self.board.place_cell(4,5,' ',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()   
+    def display(self):
+        AlgorithmSelector(self.board)
+                   
         
 class Level19: 
      
@@ -379,9 +355,9 @@ class Level19:
         self.board.place_cell(4,4,' ',False) 
          
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
  
 class Level20: 
      
@@ -398,9 +374,9 @@ class Level20:
         self.board.place_cell(4,3,'R',False) 
          
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()  
+    def display(self):
+        AlgorithmSelector(self.board)
+                  
         
 class Level21: 
      
@@ -417,9 +393,9 @@ class Level21:
         self.board.place_cell(2,3,'R',False) 
          
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector() 
+    def display(self):
+        AlgorithmSelector(self.board)
+                 
         
 class Level22: 
      
@@ -440,9 +416,9 @@ class Level22:
  
  
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()      
+    def display(self):
+        AlgorithmSelector(self.board)
+                  
 
 class Level23: 
      
@@ -460,9 +436,9 @@ class Level23:
         self.board.place_cell(3,2,'R',True) 
         self.board.place_cell(3,4,'N',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()    
+    def display(self):
+        AlgorithmSelector(self.board)
+                    
         
 class Level24: 
      
@@ -481,9 +457,9 @@ class Level24:
         self.board.place_cell(4,0,' ',False) 
         self.board.place_cell(4,4,' ',False) 
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()  
+    def display(self):
+        AlgorithmSelector(self.board)
+                  
         
         
 class Level25: 
@@ -502,8 +478,8 @@ class Level25:
         self.board.place_cell(4,0,'N',True) 
  
  
-    def display(self): 
-        self.board.print_board() 
-        self.board.magnet_selector()   
+    def display(self):
+        AlgorithmSelector(self.board)
+                   
         
  

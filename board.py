@@ -1,6 +1,8 @@
 from cell import Cell
 from colorama import Fore, Back, Style, init
 
+from move import Move
+
 
 init()
 
@@ -23,8 +25,9 @@ class Board:
       cell = Cell(x,y,cell_type,whiteSpace)
       self.board[x][y] = cell
 
+              
     def magnet_selector(self):
-      
+      self.print_board()
       while self.lives > 0:
         isFound = False  
         input_magnet_type = input("Enter magnet type [R - N]: ")
@@ -70,11 +73,12 @@ class Board:
 
       if self.lives <= 0:
         print("Game Over")
+    
         
 
     def move_iron_towards_magnet_pos(self, magnet_pos_x, magnet_pos_y):
         
-     for x in range(magnet_pos_x - 1, -1, -1):
+     for x in range(magnet_pos_x - 1, 0, -1):
         current_cell = self.board[x][magnet_pos_y]
         above_cell = self.board[x - 1][magnet_pos_y] if x - 1 >= 0 else None
 
@@ -83,7 +87,7 @@ class Board:
                 current_cell.cell_type, above_cell.cell_type = above_cell.cell_type, current_cell.cell_type
 
    
-     for x in range(magnet_pos_x + 1, self.rows):
+     for x in range(magnet_pos_x + 1, self.rows-1, 1):
         current_cell = self.board[x][magnet_pos_y]
         below_cell = self.board[x + 1][magnet_pos_y] if x + 1 < self.rows else None
 
@@ -92,7 +96,7 @@ class Board:
                 current_cell.cell_type, below_cell.cell_type = below_cell.cell_type, current_cell.cell_type
 
   
-     for y in range(magnet_pos_y - 1, -1, -1):
+     for y in range(magnet_pos_y - 1, 0, -1):
         current_cell = self.board[magnet_pos_x][y]
         left_cell = self.board[magnet_pos_x][y-1] if y - 1 >= 0 else None
 
@@ -102,7 +106,7 @@ class Board:
                 
 
     
-     for y in range(magnet_pos_y + 1, self.cols):
+     for y in range(magnet_pos_y + 1, self.cols-1, 1):
         current_cell = self.board[magnet_pos_x][y]
         right_cell = self.board[magnet_pos_x][y+1] if y + 1 < self.cols else None
 
@@ -110,93 +114,103 @@ class Board:
             if right_cell and right_cell.cell_type in ['N', 'I']:
                 current_cell.cell_type, right_cell.cell_type = right_cell.cell_type, current_cell.cell_type
 
-
+    
     def move_iron_away_magnet_neg(self, magnet_neg_x, magnet_neg_y):
-    
-       for x in range(magnet_neg_x - 1, 0, -1):
-        current_cell = self.board[x][magnet_neg_y]
-        above_cell = self.board[x - 1][magnet_neg_y] if x - 1 >= 0 else None
-
-        if current_cell.cell_type == '.':
-            continue
-        elif current_cell.cell_type in ['R', 'I']:
-            if above_cell and above_cell.cell_type == '.':
-                above_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
+        moved = False
+        for x in range(magnet_neg_x - 1, 0, -1):
+            if x < 1:
                 break
-            elif above_cell and above_cell.cell_type in ['R', 'I']:
-                temp = above_cell.cell_type
-                self.board[x - 2][magnet_neg_y].cell_type = above_cell.cell_type
-                above_cell.cell_type = '.'
-                self.board[x - 2][magnet_neg_y].cell_type = temp
-                above_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
+            current_cell = self.board[x][magnet_neg_y]
+            above_cell = self.board[x - 1][magnet_neg_y]
+
+            if current_cell.cell_type == '.':
+                continue
+            elif current_cell.cell_type in ['R', 'I']:
+                if above_cell.cell_type == '.':
+                    above_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+                elif x - 2 >= 0 and above_cell.cell_type in ['R', 'I']:
+                    temp = self.board[x - 2][magnet_neg_y].cell_type
+                    self.board[x - 2][magnet_neg_y].cell_type = above_cell.cell_type
+                    above_cell.cell_type = '.'
+                    above_cell.cell_type = temp
+                    above_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+
+        for x in range(magnet_neg_x + 1, self.rows-1):
+            if x >= self.rows - 1:
                 break
+            current_cell = self.board[x][magnet_neg_y]
+            below_cell = self.board[x + 1][magnet_neg_y]
 
-    
-       for x in range(magnet_neg_x + 1, self.rows - 1):
-        current_cell = self.board[x][magnet_neg_y]
-        below_cell = self.board[x + 1][magnet_neg_y] if x + 1 < self.rows else None
+            if current_cell.cell_type == '.':
+                continue
+            elif current_cell.cell_type in ['R', 'I']:
+                if below_cell.cell_type == '.':
+                    below_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+                elif x + 2 < self.rows and below_cell.cell_type in ['R', 'I']:
+                    temp = self.board[x + 2][magnet_neg_y].cell_type
+                    self.board[x + 2][magnet_neg_y].cell_type = below_cell.cell_type
+                    below_cell.cell_type = '.'
+                    below_cell.cell_type = temp
+                    below_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
 
-        if current_cell.cell_type == '.':
-            continue
-        elif current_cell.cell_type in ['R', 'I']:
-            if below_cell and below_cell.cell_type == '.':
-                below_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
+        for y in range(magnet_neg_y - 1, 0, -1):
+            if y < 1:
                 break
-            elif below_cell and below_cell.cell_type in ['R', 'I']:
-                temp = below_cell.cell_type
-                self.board[x + 2][magnet_neg_y].cell_type = below_cell.cell_type
-                below_cell.cell_type = '.'
-                self.board[x + 2][magnet_neg_y].cell_type = temp
-                below_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
+            current_cell = self.board[magnet_neg_x][y]
+            left_cell = self.board[magnet_neg_x][y - 1]
+
+            if current_cell.cell_type == '.':
+                continue
+            elif current_cell.cell_type in ['R', 'I']:
+                if left_cell.cell_type == '.':
+                    left_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+                elif y - 2 >= 0 and left_cell.cell_type in ['R', 'I']:
+                    temp = self.board[magnet_neg_x][y - 2].cell_type
+                    self.board[magnet_neg_x][y - 2].cell_type = left_cell.cell_type
+                    left_cell.cell_type = '.'
+                    left_cell.cell_type = temp
+                    left_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+
+        for y in range(magnet_neg_y + 1, self.cols-1):
+            if y >= self.cols - 1:
                 break
+            current_cell = self.board[magnet_neg_x][y]
+            right_cell = self.board[magnet_neg_x][y + 1]
 
-    
-       for y in range(magnet_neg_y - 1, 0, -1):
-        current_cell = self.board[magnet_neg_x][y]
-        left_cell = self.board[magnet_neg_x][y - 1] if y - 1 >= 0 else None
-
-        if current_cell.cell_type == '.':
-            continue
-        elif current_cell.cell_type in ['R', 'I']:
-            if left_cell and left_cell.cell_type == '.':
-                left_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
-                break
-            elif left_cell and left_cell.cell_type in ['R', 'I']:
-                temp = left_cell.cell_type
-                self.board[magnet_neg_x][y - 2].cell_type = left_cell.cell_type
-                left_cell.cell_type = '.'
-                self.board[magnet_neg_x][y - 2].cell_type = temp
-                left_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
-                break
-
-    
-       for y in range(magnet_neg_y + 1, self.cols - 1):
-        current_cell = self.board[magnet_neg_x][y]
-        right_cell = self.board[magnet_neg_x][y + 1] if y + 1 < self.cols else None
-
-        if current_cell.cell_type == '.':
-            continue
-        elif current_cell.cell_type in ['R', 'I']:
-            if right_cell and right_cell.cell_type == '.':
-                right_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
-                break
-            elif right_cell and right_cell.cell_type in ['R', 'I']:
-                temp = right_cell.cell_type
-                self.board[magnet_neg_x][y + 2].cell_type = right_cell.cell_type
-                right_cell.cell_type = '.'
-                self.board[magnet_neg_x][y + 2].cell_type = temp
-                right_cell.cell_type = current_cell.cell_type
-                current_cell.cell_type = '.'
-                break
-
-
+            if current_cell.cell_type == '.':
+                continue
+            elif current_cell.cell_type in ['R', 'I']:
+                if right_cell.cell_type == '.':
+                    right_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
+                    break
+                elif y + 2 < self.cols and right_cell.cell_type in ['R', 'I']:
+                    temp = self.board[magnet_neg_x][y + 2].cell_type
+                    self.board[magnet_neg_x][y + 2].cell_type = right_cell.cell_type
+                    right_cell.cell_type = '.'
+                    right_cell.cell_type = temp
+                    right_cell.cell_type = current_cell.cell_type
+                    current_cell.cell_type = '.'
+                    moved = True
             
     def check_filled(self):     
        for row in range(self.rows):
@@ -210,7 +224,7 @@ class Board:
                   self.board[row][col].whiteFilled = False
             else:
               pass
-       self.check_won(self.white_space_counter,self.white_filled_counter)
+       #self.check_won(self.white_space_counter,self.white_filled_counter)
 
     def check_won(self,white_space_counter,white_filled_counter):
           if white_space_counter == white_filled_counter:
