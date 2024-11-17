@@ -3,8 +3,7 @@ from bfs import Algoritims2
 from board import Board
 from choice import AlgorithmSelector
 from dfs import Algoritims
-from games import Games
-from move import Move
+
 
 class Level1:
     

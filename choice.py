@@ -2,6 +2,7 @@ from bfs import Algoritims2
 
 from board import Board
 from dfs import Algoritims
+from ucs import Algoritims3
 
 class AlgorithmSelector:
     def __init__(self, board):
@@ -11,7 +12,9 @@ class AlgorithmSelector:
         print("Choose an algorithm to execute:")
         print("1. Depth-First Search (DFS)")
         print("2. Breadth-First Search (BFS)")
-        print("3. Player")
+        print("3. uniform-cost search (UCS)")
+        print("4. Player")
+        
 
         choice = input("Enter the number of your choice: ")
 
@@ -22,6 +25,8 @@ class AlgorithmSelector:
             elif choice_num == 2:
                 Algoritims2().bfs(board.rows, board.cols, board)
             elif choice_num == 3:
+                Algoritims3().ucs(board.rows, board.cols, board)
+            elif choice_num == 4:
                 board.magnet_selector()
             else:
                 print("Invalid choice. Please select a valid option.")

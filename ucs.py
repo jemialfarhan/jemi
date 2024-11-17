@@ -1,18 +1,28 @@
+import heapq
 from collections import deque
 import copy
-
 from colorama import Back, Fore
-
 from cell import Cell
 from current_position import Current_position
 
-class Algoritims2:
-    def bfs(self, rows, cols, board):
-        queue = deque([(board, [])]) 
+class PrioritizedBoard:
+    def __init__(self, cost, board, path):
+        self.cost = cost
+        self.board = board
+        self.path = path
+
+    def __lt__(self, other):
+        return self.cost < other.cost
+
+class Algoritims3:
+    def ucs(self, rows, cols, board):
+        queue = []
+        heapq.heappush(queue, PrioritizedBoard(0, board, [])) 
         visited = set()
 
         while queue:
-            current_board, path = queue.popleft()
+            current = heapq.heappop(queue)
+            current_board, path, cost = current.board, current.path, current.cost
 
             board_str = self.board_to_str(current_board)
             if board_str in visited:
@@ -23,6 +33,8 @@ class Algoritims2:
             
             if self.is_goal_state(current_board):
                 print("Goal state reached")
+                print(f"Total cost: {cost}")
+                print(f"path: {path}")
                 self.print_board(current_board)
                 return current_board
 
@@ -32,7 +44,7 @@ class Algoritims2:
                 for move in moves:
                     n_board = self.copy_board(rows, cols, current_board)
                     self.move_magnet(magnet_x, magnet_y, move.pos_x, move.pos_y, n_board)
-                    queue.append((n_board, path + [(magnet_x, magnet_y, move.pos_x, move.pos_y)]))
+                    heapq.heappush(queue, PrioritizedBoard(cost + 1, n_board, path + [(magnet_x, magnet_y, move.pos_x, move.pos_y)]))
 
         print("No solution found")
         return None

@@ -1,7 +1,6 @@
 from cell import Cell
 from colorama import Fore, Back, Style, init
 
-from move import Move
 
 
 init()
